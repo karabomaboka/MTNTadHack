@@ -1,26 +1,35 @@
 import React from "react";
-import { TextInput, StyleSheet, View, Button } from "react-native";
+import { StyleSheet, TouchableOpacity, Text } from "react-native";
 
-const Button = ({ title = "Type Text Here...", lines = 1 }) => {
+const SimpleButton = ({ title = "Button", bg = "#1C7CF9" }) => {
   return (
-    <View>
-      <TextInput
-        placeholder={ph}
-        numberOfLines={lines}
-        style={styles.TextInput}
-      />
-    </View>
+    <TouchableOpacity
+      style={[
+        styles.submitBtn,
+        {
+          backgroundColor: bg,
+        },
+      ]}
+    >
+      <Text style={styles.submitBtnTxt}>{title}</Text>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
-  TextInput: {
-    fontSize: 18,
-    paddingHorizontal: 10,
-    paddingVertical: 15,
+  submitBtn: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    marginVertical: 5,
+    backgroundColor: "#39C250",
     borderRadius: 6,
-    backgroundColor: "lightgrey",
+  },
+  submitBtnTxt: {
+    fontSize: 18,
+    textAlign: "center",
+    textTransform: "uppercase",
+    color: "#fff",
   },
 });
 
-export default Button;
+export default SimpleButton;
