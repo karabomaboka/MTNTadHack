@@ -13,7 +13,7 @@ import Constants from "expo-constants";
 import { createUser } from "../actions/index";
 
 const SignUp = ({ navigation }) => {
-  const [user, setUser] = useState({
+  /* const [user, setUser] = useState({
     first_name: "",
     last_name: "",
     dob: "",
@@ -26,9 +26,17 @@ const SignUp = ({ navigation }) => {
     loan_amount_term: "",
     time_stamp: "",
     email: "",
-  });
+  }); */
+  const [users, setUsers] = useState([]);
   const handlesSubmit = () => {
     createUser();
+  };
+
+  const addUser = (user) => {
+    //user.key = Math.random().toString();
+    setUsers((current) => {
+      return [user, ...current];
+    });
   };
 
   return (
@@ -52,10 +60,12 @@ const SignUp = ({ navigation }) => {
             marital_status: "",
             loan_amount: "",
             loan_amount_term: "",
-            time_stamp: "",
+            /* time_stamp: "", */
           }}
           onSubmit={(values) => {
             console.log(values);
+            addUser(values);
+            console.log(users);
           }}
         >
           {(props) => (
@@ -80,6 +90,13 @@ const SignUp = ({ navigation }) => {
                 style={styles.input}
                 onChangeText={props.handleChange("last_name")}
                 value={props.values.last_name}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Date of birth"
+                style={styles.input}
+                onChangeText={props.handleChange("dob")}
+                value={props.values.dob}
               />
               <TextInput
                 style={styles.input}
@@ -108,14 +125,14 @@ const SignUp = ({ navigation }) => {
                 placeholder="Job"
                 style={styles.input}
                 onChangeText={props.handleChange("job")}
-                value={props.values.education}
+                value={props.values.job}
               />
               <TextInput
                 style={styles.input}
                 placeholder="Telephone"
                 style={styles.input}
                 onChangeText={props.handleChange("telephone")}
-                value={props.values.education}
+                value={props.values.telephone}
               />
 
               <TextInput
@@ -139,7 +156,10 @@ const SignUp = ({ navigation }) => {
                     backgroundColor: "#39C250",
                   },
                 ]}
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => {
+                  navigation.navigate("Home");
+                  props.handleSubmit();
+                }}
               >
                 <Text style={styles.submitBtnTxt}>Sign up</Text>
               </TouchableOpacity>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -10,6 +10,10 @@ import { Formik } from "formik";
 import SimpleButton from "../components/Button";
 
 const LoginPage = ({ navigation }) => {
+  const [loginDetails, setLoginDetails] = useState({
+    email: "",
+    password: "",
+  });
   return (
     <View style={styles.container}>
       <View styles={styles.break}></View>
@@ -20,7 +24,8 @@ const LoginPage = ({ navigation }) => {
             password: "",
           }}
           onSubmit={(values) => {
-            console.log(values);
+            setLoginDetails(values);
+            console.log(loginDetails);
           }}
         >
           {(props) => (
@@ -35,10 +40,10 @@ const LoginPage = ({ navigation }) => {
               />
               <TextInput
                 style={styles.input}
-                placeholder="Email"
+                placeholder="Password"
                 style={styles.input}
-                onChangeText={props.handleChange("email")}
-                value={props.values.email}
+                onChangeText={props.handleChange("password")}
+                value={props.values.password}
               />
 
               <TouchableOpacity
@@ -48,7 +53,10 @@ const LoginPage = ({ navigation }) => {
                     backgroundColor: "#1C7CF9",
                   },
                 ]}
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => {
+                  navigation.navigate("Home");
+                  props.handleSubmit();
+                }}
               >
                 <Text style={styles.submitBtnTxt}>Login</Text>
               </TouchableOpacity>
