@@ -1,0 +1,62 @@
+import * as React from 'react';
+import { Text, View, StyleSheet, Image, TextInput } from 'react-native';
+import Constants from 'expo';
+
+// You can import from local files
+import AssetExample from './components/AssetExample';
+
+// or any pure javascript modules available in npm
+import { Card } from 'react-native-paper';
+
+export default class App extends React.Component() {
+  render() {
+    return (
+      <View style={{
+          height: 100 + '%',
+          width: 100 + '%',
+          backgroundColor: 'black',
+          justifyContent: 'center',
+          alignItems: 'center',
+          }}>
+        
+        
+        <TextInput
+        placeholder ="email"
+        plqceholderTextColor= "white"
+        style ={{
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        width: 60 + '%',
+        padding:18,
+        borderRadius: 18
+
+        }}
+        />
+        <TextInput
+        placeholder ="email"
+        plqceholderTextColor= "white"
+        style ={{
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        width: 60 + '%',
+        padding:18,
+        borderRadius: 18
+        }}
+        />
+
+          <Text style=
+          {{
+              fontSize: 66,
+              color:'white',
+              marginTop:88
+          }}
+          >LOGIN</Text>
+
+           <Text style=
+          {{
+              fontSize: 66,
+              color:'white',
+          }}
+          >SIGN UP</Text>
+        </View>
+    );
+  }
+}
