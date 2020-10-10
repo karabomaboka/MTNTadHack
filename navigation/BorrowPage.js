@@ -1,8 +1,11 @@
 import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Button } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import { TextInput } from "react-native-gesture-handler";
+
+//CUSTOM COMPONENTS
+import SimpleInputText from "../components/SimpleTextInput";
 
 const BorrowPage = ({ navigation }) => {
   const min = 500,
@@ -20,20 +23,21 @@ const BorrowPage = ({ navigation }) => {
         >
           <Ionicons name="md-arrow-back" size={24} color="black" />
         </TouchableOpacity>
-        <Text style={styles.headItem}>Home</Text>
-        <TouchableOpacity style={styles.headItem}>
+        <Text style={styles.headItem}>Borrow Money</Text>
+        <TouchableOpacity style={[styles.headItem, { opacity: 0 }]}>
           <Ionicons name="md-person" size={24} color="black" />
         </TouchableOpacity>
       </View>
 
       <View style={styles.body}>
         <View>
-          <TextInput
+          {/* <TextInput
             style={styles.textInput}
             numberOfLines={1}
             placeholder={`From ${min} to ${max}`}
             keyboardType="numeric"
-          />
+          /> */}
+          <SimpleInputText ph={`From ${min} to ${max}`} />
           <Text
             style={{
               textAlign: "right",
@@ -53,13 +57,16 @@ const BorrowPage = ({ navigation }) => {
             <Text>Setup MTN MoMo Account</Text>
             <Text>Checked</Text>
           </View>
-          <Text>
-            Read all the terms and conditions before you can make the decision
-            to agree to make the offer to people who wants to borrow moneyso
-            here here I tell you. read man do the reading don't just press play,
-            don't do that to yourself, you didn't pay your expensive school fees
-            for nothing, make use of those skills and knowledge.
-          </Text>
+          <View>
+            <Text>
+              Read all the terms and conditions before you can make the decision
+              to agree to make the offer to people who wants to borrow moneyso
+              here here I tell you. read man do the reading don't just press
+              play, don't do that to yourself, you didn't pay your expensive
+              school fees for nothing, make use of those skills and knowledge.
+            </Text>
+            <Button title="Accept" />
+          </View>
           <View>
             <Text>Setup MTN MoMo Account</Text>
             <Text>Checked</Text>
@@ -93,6 +100,7 @@ const styles = StyleSheet.create({
   },
   headItem: {
     padding: 20,
+    fontSize: 18,
   },
   body: {
     paddingHorizontal: 20,
