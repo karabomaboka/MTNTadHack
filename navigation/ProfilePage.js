@@ -102,8 +102,8 @@ const ProfilePage = ({ navigation }) => {
           </View>
 
           <View style={styles.item}>
-            <Text style={styles.namelbl}>Housing</Text>
-            <TextInput style={styles.txt} value={"Rent"} />
+            <Text style={styles.namelbl}>Married</Text>
+            <TextInput style={styles.txt} value={"yes"} />
           </View>
 
           <View style={styles.item}>
@@ -112,13 +112,42 @@ const ProfilePage = ({ navigation }) => {
           </View>
 
           <View style={styles.item}>
-            <Text style={styles.namelbl}>Credit History</Text>
-            <TextInput style={styles.txt} value={"No Credit"} />
+            <Text style={styles.namelbl}>Income</Text>
+            <TextInput style={styles.txt} value={"Working"} />
           </View>
 
           <View style={styles.item}>
-            <Text style={styles.namelbl}>Credit History</Text>
+            <Text style={styles.namelbl}>Co Applicant Income</Text>
+            <TextInput style={styles.txt} value={"Woking"} />
+          </View>
+
+          <View style={styles.item}>
+            <Text style={styles.namelbl}>Checking Status</Text>
+            <TextInput style={styles.txt} value={"greater_700"} />
+          </View>
+          <View style={styles.item}>
+            <Text style={styles.namelbl}>Employment Duration</Text>
             <TextInput style={styles.txt} value={"No"} />
+          </View>
+          <View style={styles.item}>
+            <Text style={styles.namelbl}>Loan Purpose</Text>
+            <TextInput style={styles.txt} value={"Restraining"} />
+          </View>
+          <View style={styles.item}>
+            <Text style={styles.namelbl}>Owns Property</Text>
+            <TextInput style={styles.txt} value={"real_estate"} />
+          </View>
+          <View style={styles.item}>
+            <Text style={styles.namelbl}>Others on Loan</Text>
+            <TextInput style={styles.txt} value={"guarantor "} />
+          </View>
+          <View style={styles.item}>
+            <Text style={styles.namelbl}>Others on Loan</Text>
+            <TextInput style={styles.txt} value={"guarantor "} />
+          </View>
+          <View style={styles.item}>
+            <Text style={styles.namelbl}>Existing Savings</Text>
+            <TextInput style={styles.txt} value={"guarantor "} />
           </View>
         </View>
         <SimpleButton title={"Save"} bg={"#39C250"} />
