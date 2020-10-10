@@ -1,12 +1,12 @@
-export const increment = (nr) => {
+export const payoff = (nr) => {
   return {
-    type: "INCREMENT",
+    type: "PAY_OFF",
     payload: nr,
   };
 };
 export const decrement = (nr) => {
   return {
-    type: "DECREMENT",
+    type: "ADD",
     payload: nr,
   };
 };

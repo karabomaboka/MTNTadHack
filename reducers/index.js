@@ -1,9 +1,8 @@
-/* import { combineReducers } from "redux";
-import counterReducer from "./counter";
-import loggedReducer from "./isLogged";
+import { combineReducers } from "redux";
+import outstandingReducer from "./outstanding";
+import loginReducer from "./login";
 
 export const allReducers = combineReducers({
-  counter: counterReducer,
-  logged: loggedReducer,
+  outstanding: outstandingReducer,
+  login: loginReducer,
 });
- */

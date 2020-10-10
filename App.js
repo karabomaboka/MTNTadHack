@@ -1,12 +1,13 @@
 //import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { View } from "react-native";
+import { createStore, applyMiddleware, compose } from "redux";
+import allReducers from "./reducers/index";
+import { Provider } from "react-redux";
+
+//let store = createStore(allReducers);
+
 import Main from "./navigation/Main";
 
 export default function App() {
-  return (
-    <View style={{ flex: 1 }}>
-      <Main />
-    </View>
-  );
+  return <Main />;
 }

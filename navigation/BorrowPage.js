@@ -1,23 +1,47 @@
-import React from "react";
-import { StyleSheet, View, Text, TouchableOpacity, Button } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  Button,
+  TextInput,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
-import { TextInput } from "react-native-gesture-handler";
 
 //CUSTOM COMPONENTS
 import SimpleInputText from "../components/SimpleTextInput";
 
 const BorrowPage = ({ navigation }) => {
+  const [momo, setMomo] = useState(true);
+  const [tsAndCs, setTsAndCs] = useState(false);
+  const [lang, setLang] = useState({
+    language: "java",
+  });
+
   const min = 500,
     max = 5000;
   const interest = 20;
+  let data = [
+    {
+      value: "Banana",
+    },
+    {
+      value: "Mango",
+    },
+    {
+      value: "Pear",
+    },
+  ];
+
   return (
     <View style={styles.homeContainer}>
       <View style={styles.statusBar}></View>
       <View style={styles.head}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate(goBack());
+            navigation.navigate("Home");
           }}
           style={styles.headItem}
         >
@@ -31,13 +55,7 @@ const BorrowPage = ({ navigation }) => {
 
       <View style={styles.body}>
         <View>
-          {/* <TextInput
-            style={styles.textInput}
-            numberOfLines={1}
-            placeholder={`From ${min} to ${max}`}
-            keyboardType="numeric"
-          /> */}
-          <SimpleInputText ph={`From ${min} to ${max}`} />
+          <SimpleInputText keyboard={"numeric"} ph={`From ${min} to ${max}`} />
           <Text
             style={{
               textAlign: "right",
@@ -48,34 +66,53 @@ const BorrowPage = ({ navigation }) => {
           >
             with {interest}% interest
           </Text>
-          <TextInput
-            style={styles.textInput}
-            numberOfLines={3}
-            placeholder="The reason for the loan..."
+
+          <SimpleInputText
+            lines={3}
+            ph="The reason you want the loan(optional)"
           />
-          <View>
-            <Text>Setup MTN MoMo Account</Text>
-            <Text>Checked</Text>
+          <View style={styles.momoSetup}>
+            {momo ? (
+              <Text style={styles.momoSetupTxt}>
+                MTN MoMo Account successfully Setup
+              </Text>
+            ) : (
+              <TouchableOpacity>
+                <Text style={styles.momoSetupTxt}>Setup MoMo Account</Text>
+              </TouchableOpacity>
+            )}
           </View>
-          <View>
-            <Text>
-              Read all the terms and conditions before you can make the decision
-              to agree to make the offer to people who wants to borrow moneyso
-              here here I tell you. read man do the reading don't just press
-              play, don't do that to yourself, you didn't pay your expensive
-              school fees for nothing, make use of those skills and knowledge.
-            </Text>
-            <Button title="Accept" />
-          </View>
-          <View>
-            <Text>Setup MTN MoMo Account</Text>
-            <Text>Checked</Text>
+          <Text style={styles.tsAndCs}>
+            Read all the terms and conditions before you can make the decision
+            to agree to make the offer to people who wants to borrow moneyso
+            here here I tell you. read man do the reading don't just press play,
+            don't do that to yourself, you didn't pay your expensive school fees
+            for nothing, make use of those skills and knowledge.
+          </Text>
+          <View style={styles.tsAndCsBtn}>
+            {tsAndCs ? (
+              <Text
+                style={styles.tsAndCsBtn}
+                onPress={() => setTsAndCs((prev) => !prev)}
+              >
+                Accepted Terms and Conditions
+              </Text>
+            ) : (
+              <Text
+                style={styles.tsAndCsBtn}
+                onPress={() => setTsAndCs((prev) => !prev)}
+              >
+                Accept Terms and Conditions
+              </Text>
+            )}
+            {/* <Text>Accept Terms and Conditions</Text>
+            <Button title="Accept" /> */}
           </View>
 
-          <TouchableOpacity style={styles.submitBtn}>
-            <Text style={styles.submitBtnTxt}>Post Offer</Text>
+          <TouchableOpacity style={[styles.submitBtn, styles.postBtn]}>
+            <Text style={styles.submitBtnTxt}>Borrow</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.submitBtn}>
+          <TouchableOpacity style={[styles.submitBtn, styles.cancelBtn]}>
             <Text style={styles.submitBtnTxt}>Cancel</Text>
           </TouchableOpacity>
         </View>
@@ -110,12 +147,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 15,
     borderRadius: 6,
+    height: 80,
     backgroundColor: "lightgrey",
+  },
+  momoSetup: {
+    paddingVertical: 10,
+  },
+  momoSetupTxt: {
+    fontSize: 18,
+  },
+  tsAndCs: { fontSize: 16 },
+  tsAndCsBtn: {
+    paddingVertical: 5,
+    fontSize: 18,
+    textDecorationLine: "underline",
+    color: "#1C7CF9",
   },
   submitBtn: {
     paddingHorizontal: 20,
-    paddingVertical: 15,
-    marginVertical: 10,
+    paddingVertical: 10,
+    marginVertical: 5,
     backgroundColor: "#39C250",
     borderRadius: 6,
   },
@@ -123,6 +174,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     textAlign: "center",
     textTransform: "uppercase",
+    color: "#fff",
+  },
+  postBtn: {
+    backgroundColor: "#1C7CF9",
+  },
+  cancelBtn: {
+    backgroundColor: "#F91C23",
   },
 });
 

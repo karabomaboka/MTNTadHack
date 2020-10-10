@@ -11,8 +11,13 @@ const HomePage = ({ navigation }) => {
     <View style={styles.homeContainer}>
       <View style={styles.statusBar}></View>
       <View style={styles.head}>
-        <TouchableOpacity style={styles.headItem}>
-          <Ionicons name="md-menu" size={28} color="black" />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("CreateOfferPage");
+          }}
+          style={styles.headItem}
+        >
+          <Ionicons name="md-add" size={28} color="black" />
         </TouchableOpacity>
 
         <Text style={styles.headItem}>Home</Text>

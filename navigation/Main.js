@@ -25,7 +25,13 @@ const Main = () => {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="CreateOfferPage" component={CreateOfferPage} />
+        <Stack.Screen
+          name="CreateOfferPage"
+          component={CreateOfferPage}
+          options={{
+            headerShown: false,
+          }}
+        />
         <Stack.Screen
           name="BorrowPage"
           component={BorrowPage}
