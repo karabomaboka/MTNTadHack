@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Button } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
+import { useSelector, useDispatch } from "react-redux";
 
 const HomePage = ({ navigation }) => {
   const [outstandingClr, setOutstandingClr] = useState({
     backgroundColor: "#39C250",
   });
+
+  const outstandingBalance = useSelector((state) => state.outstanding);
+  console.log(outstandingBalance);
+  const dispatch = useDispatch();
+
   return (
-    <View style={styles.homeContainer}>
+    <View style={styles.container}>
       <View style={styles.statusBar}></View>
       <View style={styles.head}>
         <TouchableOpacity
@@ -19,9 +25,7 @@ const HomePage = ({ navigation }) => {
         >
           <Ionicons name="md-add" size={28} color="black" />
         </TouchableOpacity>
-
         <Text style={styles.headItem}>Home</Text>
-
         <TouchableOpacity
           onPress={() => {
             navigation.navigate("ProfilePage");
@@ -34,8 +38,13 @@ const HomePage = ({ navigation }) => {
 
       <View style={styles.body}>
         <View style={[styles.outstandingSection, outstandingClr]}>
-          <View style={styles.outstandingBalance}>
-            <Text style={styles.outstandingBalanceTxt}>R50,00</Text>
+          <View
+            style={styles.outstandingBalance}
+            onPress={() => dispatch(payoff(2))}
+          >
+            <Text style={styles.outstandingBalanceTxt}>
+              {outstandingBalance}
+            </Text>
             <Text style={styles.outstandingBalanceLbl}>Outstanding</Text>
           </View>
           <TouchableOpacity
@@ -71,7 +80,7 @@ const HomePage = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  homeContainer: {
+  container: {
     flex: 1,
     backgroundColor: "#fff",
   },
@@ -90,7 +99,8 @@ const styles = StyleSheet.create({
   headItem: {
     padding: 20,
   },
-  body: {},
+
+  body: { backgroundColor: "snow" },
   outstandingSection: {
     flexDirection: "row",
     justifyContent: "space-between",

@@ -7,9 +7,8 @@ import {
   Button,
   TextInput,
 } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
-
+import { Ionicons } from "@expo/vector-icons";
 //CUSTOM COMPONENTS
 import SimpleInputText from "../components/SimpleTextInput";
 

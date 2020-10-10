@@ -10,6 +10,8 @@ import CreateOfferPage from "./CreateOfferPage";
 import BorrowPage from "./BorrowPage";
 import ProfilePage from "./ProfilePage";
 import SearchPage from "./SearchPage";
+import SignUpPage from "./SignUpPage";
+import LoginPage from "./LoginPage";
 
 //STACK
 const Stack = createStackNavigator();
@@ -17,7 +19,7 @@ const Stack = createStackNavigator();
 const Main = () => {
   return (
     <NavigationContainer style={styles.container}>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Login">
         <Stack.Screen
           name="Home"
           component={HomePage}
@@ -46,6 +48,14 @@ const Main = () => {
           }}
           component={ProfilePage}
         />
+        <Stack.Screen
+          name="SignUp"
+          options={{
+            headerShown: false,
+          }}
+          component={SignUpPage}
+        />
+        <Stack.Screen name="Login" component={LoginPage} />
         <Stack.Screen name="SearchPage" component={SearchPage} />
       </Stack.Navigator>
     </NavigationContainer>

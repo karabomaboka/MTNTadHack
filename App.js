@@ -3,9 +3,11 @@ import React from "react";
 import { createStore, applyMiddleware, compose } from "redux";
 import allReducers from "./reducers/index";
 import { Provider } from "react-redux";
+import thunkMiddleware from "redux-thunk";
+import thunk from "redux-thunk";
 import * as firebase from "firebase";
 
-//let store = createStore(allReducers);
+import Main from "./navigation/Main";
 
 const firebaseConfig = {
   apiKey: "api-key",
@@ -18,10 +20,19 @@ const firebaseConfig = {
   measurementId: "G-measurement-id",
 };
 
-firebase.initializeApp(firebaseConfig);
-
-import Main from "./navigation/Main";
+if (!firebase.apps.length) {
+  //firebase.initializeApp(firebaseConfig);
+}
+let store = createStore(allReducers, applyMiddleware(thunkMiddleware));
 
 export default function App() {
-  return <Main />;
+  const initialState = {
+    personData: {},
+  };
+
+  return (
+    <Provider store={store}>
+      <Main />
+    </Provider>
+  );
 }
