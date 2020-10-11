@@ -10,33 +10,41 @@ import {
 import { Formik } from "formik";
 import { connect } from "react-redux";
 import Constants from "expo-constants";
+import * as firebase from "firebase";
 import { createUser } from "../actions/index";
+import * as yup from "yup";
+
+let signUpSchema = yup.object().shape({
+  email: yup.string().email().required("Email is not provided"),
+  password: yup
+    .string()
+    .required("No password provided.")
+    .min(8, "Password is too short - should be 8 chars minimum.")
+    .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
+});
 
 const SignUp = ({ navigation }) => {
-  /* const [user, setUser] = useState({
-    first_name: "",
-    last_name: "",
-    dob: "",
-    gender: "",
-    education: "",
-    job: "",
-    telephone: "",
-    marital_status: "",
-    loan_amount: "",
-    loan_amount_term: "",
-    time_stamp: "",
+  const [user, setUser] = useState({
     email: "",
-  }); */
-  const [users, setUsers] = useState([]);
+    password: "",
+  });
+  const [error, setError] = useState("");
   const handlesSubmit = () => {
     createUser();
   };
 
+  const handleSignUp = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(user.email, user.password)
+      .then(() => navigation.navigate("Home"))
+      .catch((error) => {
+        console.warn("not looking niceSignup");
+      });
+  };
+
   const addUser = (user) => {
-    //user.key = Math.random().toString();
-    setUsers((current) => {
-      return [user, ...current];
-    });
+    setUser(user);
   };
 
   return (
@@ -50,105 +58,35 @@ const SignUp = ({ navigation }) => {
         <Formik
           initialValues={{
             email: "",
-            first_name: "",
-            last_name: "",
-            dob: "",
-            gender: "",
-            education: "",
-            job: "",
-            telephone: "",
-            marital_status: "",
-            loan_amount: "",
-            loan_amount_term: "",
-            /* time_stamp: "", */
+            password: "",
           }}
           onSubmit={(values) => {
-            console.log(values);
+            //console.log(values);
             addUser(values);
-            console.log(users);
+            handleSignUp();
+            console.log(user);
           }}
+          validationSchema={signUpSchema}
         >
           {(props) => (
             <View>
               <TextInput
                 style={styles.input}
                 placeholder="Email"
+                keyboardType="email-address"
                 style={styles.input}
                 onChangeText={props.handleChange("email")}
                 value={props.values.email}
               />
               <TextInput
                 style={styles.input}
-                placeholder="First Name"
+                keyboardType="visible-password"
+                placeholder="Password"
                 style={styles.input}
-                onChangeText={props.handleChange("first_name")}
-                value={props.values.first_name}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Last Name"
-                style={styles.input}
-                onChangeText={props.handleChange("last_name")}
-                value={props.values.last_name}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Date of birth"
-                style={styles.input}
-                onChangeText={props.handleChange("dob")}
-                value={props.values.dob}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Gender"
-                style={styles.input}
-                onChangeText={props.handleChange("gender")}
-                value={props.values.gender}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Marital Status"
-                style={styles.input}
-                onChangeText={props.handleChange("marital_status")}
-                value={props.values.marital_status}
-              />
-              <View style={styles.break}></View>
-              <TextInput
-                style={styles.input}
-                placeholder="Education"
-                style={styles.input}
-                onChangeText={props.handleChange("education")}
-                value={props.values.education}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Job"
-                style={styles.input}
-                onChangeText={props.handleChange("job")}
-                value={props.values.job}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Telephone"
-                style={styles.input}
-                onChangeText={props.handleChange("telephone")}
-                value={props.values.telephone}
+                onChangeText={props.handleChange("password")}
+                value={props.values.password}
               />
 
-              <TextInput
-                style={styles.input}
-                placeholder="Loan Amount"
-                style={styles.input}
-                onChangeText={props.handleChange("loan_amount")}
-                value={props.values.loan_amount}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Loan Amount Term"
-                style={styles.input}
-                onChangeText={props.handleChange("loan_amount_term")}
-                value={props.values.loan_amount_term}
-              />
               <TouchableOpacity
                 style={[
                   styles.submitBtn,
@@ -157,7 +95,6 @@ const SignUp = ({ navigation }) => {
                   },
                 ]}
                 onPress={() => {
-                  navigation.navigate("Home");
                   props.handleSubmit();
                 }}
               >

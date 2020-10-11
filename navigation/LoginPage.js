@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,13 +7,18 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Formik } from "formik";
-import SimpleButton from "../components/Button";
+import * as firebase from "firebase";
 
 const LoginPage = ({ navigation }) => {
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
   });
+
+  /* useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {});
+  }, []); */
+
   return (
     <View style={styles.container}>
       <View styles={styles.break}></View>
@@ -26,6 +31,24 @@ const LoginPage = ({ navigation }) => {
           onSubmit={(values) => {
             setLoginDetails(values);
             console.log(loginDetails);
+            firebase
+              .auth()
+              .signInWithEmailAndPassword(
+                loginDetails.email,
+                loginDetails.password
+              )
+              .then(() => {
+                navigation.navigate("Home");
+              })
+              .catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.log("sorry buddy");
+                console.log(errorCode, errorMessage);
+                console.warn("not looking good");
+                // ...
+              });
           }}
         >
           {(props) => (
@@ -54,7 +77,6 @@ const LoginPage = ({ navigation }) => {
                   },
                 ]}
                 onPress={() => {
-                  navigation.navigate("Home");
                   props.handleSubmit();
                 }}
               >

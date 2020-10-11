@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Button } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Constants from "expo-constants";
 import { useSelector, useDispatch } from "react-redux";
+import * as firebase from "firebase";
 
 const HomePage = ({ navigation }) => {
   const [outstandingClr, setOutstandingClr] = useState({
